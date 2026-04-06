@@ -1,26 +1,204 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================================
+   Legit — Design System & Global Styles
+   Light Mode iOS-Style Glassmorphism
+   ============================================================ */
 
+/* --- Theme Tokens --- */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #f4f5f7;
+  --color-foreground: #111827;
+  --color-surface: rgba(255, 255, 255, 0.7);
+  --color-surface-hover: rgba(255, 255, 255, 0.85);
+  --color-border: rgba(255, 255, 255, 0.4);
+
+  /* Legit brand gradient */
+  --color-legit-pink: #b90051;
+  --color-legit-blue: #2563eb;
+
+  /* Font */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* --- Base Styles --- */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+/* --- iOS Light Glassmorphism Utility --- */
+.glass {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  /* Subdued shadow for depth without high contrast */
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  /* iOS Safari fix: force GPU layer */
+  transform: translate3d(0, 0, 0);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transform: translate3d(0, 0, 0);
+}
+
+/* --- Embla Carousel Styles --- */
+.embla {
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  position: relative;
+}
+
+/* --- Slide Indicator Dots --- */
+.slide-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.slide-dot.active {
+  width: 24px;
+  background: linear-gradient(to right, #b90051, #2563eb);
+}
+
+/* --- Likert Scale Animations --- */
+.likert-btn {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translate3d(0, 0, 0);
+}
+
+.likert-btn:hover {
+  transform: translate3d(0, -2px, 0) scale(1.05);
+}
+
+.likert-btn:active {
+  transform: translate3d(0, 0, 0) scale(0.95);
+}
+
+.likert-btn.selected {
+  transform: translate3d(0, -2px, 0) scale(1.1);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Card Animations --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-enter {
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* --- Vote Summary Bar Animation --- */
+@keyframes barGrow {
+  from {
+    width: 0%;
+  }
+}
+
+.bar-animate {
+  animation: barGrow 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* --- Gradient Text (Stabilo effect) --- */
+.legit-gradient-text {
+  background: linear-gradient(to right, rgba(185, 0, 81, 0.9), rgba(37, 99, 235, 0.9));
+  color: white !important;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* --- Soft ambient glow for header logo (Light mode) --- */
+@keyframes softGlow {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(185, 0, 81, 0.15);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(185, 0, 81, 0.25), 0 2px 8px rgba(37, 99, 235, 0.15);
+  }
+}
+
+.logo-glow {
+  animation: softGlow 4s ease-in-out infinite;
+}
+
+/* --- Skeleton Loading (Light mode) --- */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.04) 25%,
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+/* --- Custom Scrollbar (minimal, light) --- */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+/* --- Safe area for iOS notch --- */
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
 }
