@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 safe-top">
+    <header className="fixed top-0 left-0 right-0 z-0 safe-top opacity-0 pointer-events-none">
       <div className="glass-strong">
         <div className="max-w-lg mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo + Brand */}

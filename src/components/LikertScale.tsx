@@ -73,10 +73,10 @@ export function LikertScale({ measureId, compact }: LikertScaleProps) {
       )}
 
       {/* Likert buttons with inline labels */}
-      <div className="flex items-center justify-between gap-1 w-full relative">
-        <span className="text-[10px] font-semibold text-gray-400 tracking-wide pr-1">Contre</span>
+      <div className="flex items-center justify-between w-full relative">
+        <span className="text-[10px] font-semibold text-gray-400 tracking-wide pr-1 shrink-0">Contre</span>
         
-        <div className="flex items-center justify-between gap-1 flex-1">
+        <div className="flex items-center justify-between flex-1 max-w-full px-1">
           {LIKERT_OPTIONS.map((option) => {
             const isSelected = selectedValue === option.value;
             return (
@@ -110,7 +110,7 @@ export function LikertScale({ measureId, compact }: LikertScaleProps) {
           })}
         </div>
 
-        <span className="text-[10px] font-semibold text-gray-400 tracking-wide pl-1">Pour</span>
+        <span className="text-[10px] font-semibold text-gray-400 tracking-wide pl-1 shrink-0">Pour</span>
       </div>
     </div>
   );

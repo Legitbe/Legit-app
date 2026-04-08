@@ -91,7 +91,7 @@ export function SlideCarousel({ slides }: SlideCarouselProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 pointer-events-none" />
 
                 {/* Text Layout */}
-                <div className="relative z-10 px-8 pt-16 pb-[35%] h-full flex flex-col justify-end">
+                <div className="relative z-10 px-6 pt-24 pb-[30%] h-full flex flex-col justify-end">
                   <GradientParser html={slide.content_html} />
                 </div>
               </div>
@@ -123,11 +123,11 @@ export function SlideCarousel({ slides }: SlideCarouselProps) {
       {/* Swipe Prev Hitbox */}
       {canScrollPrev && (
         <div 
-          className="absolute left-0 top-0 bottom-16 w-1/4 z-20 cursor-pointer flex items-center pl-4 touch-manipulation"
+          className="absolute left-0 top-0 bottom-0 w-16 z-20 cursor-pointer flex items-center pl-4 touch-manipulation"
           onClick={(e) => { e.stopPropagation(); emblaApi?.scrollPrev(); }}
           aria-label="Voir la précédente"
         >
-          <div className="w-10 h-10 bg-white/10 backdrop-blur-md border border-white/20 transform-gpu rounded-full shadow-lg flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+          <div className="w-10 h-10 bg-black/20 backdrop-blur-md border border-white/20 transform-gpu rounded-full shadow-lg flex items-center justify-center text-white hover:bg-black/40 transition-colors">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
@@ -138,11 +138,11 @@ export function SlideCarousel({ slides }: SlideCarouselProps) {
       {/* Swipe Next Hitbox */}
       {slides.length > 1 && canScrollNext && (
         <div 
-          className="absolute right-0 top-0 bottom-16 w-1/4 z-20 cursor-pointer flex items-center justify-end pr-4 touch-manipulation"
+          className="absolute right-0 top-0 bottom-0 w-16 z-20 cursor-pointer flex items-center justify-end pr-4 touch-manipulation"
           onClick={(e) => { e.stopPropagation(); emblaApi?.scrollNext(); }}
           aria-label="Voir la suite"
         >
-          <div className="w-10 h-10 bg-white/10 backdrop-blur-md border border-white/20 transform-gpu rounded-full shadow-lg flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+          <div className="w-10 h-10 bg-black/20 backdrop-blur-md border border-white/20 transform-gpu rounded-full shadow-lg flex items-center justify-center text-white hover:bg-black/40 transition-colors">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
