@@ -37,6 +37,28 @@ CREATE TABLE IF NOT EXISTS votes (
   UNIQUE (measure_id, device_fingerprint)
 );
 
+-- Table 4: Ingestion Logs (For Rate Limits & Errors)
+CREATE TABLE IF NOT EXISTS ingestion_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  chamber_doc_id TEXT NOT NULL,
+  error_message TEXT NOT NULL,
+  status TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Table 5: Pending Queue (Batch Processing Architecture)
+CREATE TABLE IF NOT EXISTS pending_queue (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  source_id TEXT UNIQUE NOT NULL,
+  source_url TEXT,
+  title TEXT,
+  raw_text TEXT,
+  status TEXT NOT NULL DEFAULT 'pending'
+    CHECK (status IN ('pending', 'processing', 'completed', 'failed')),
+  retry_count INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
 -- ============================================================
 -- Row Level Security
 -- ============================================================
@@ -44,6 +66,8 @@ CREATE TABLE IF NOT EXISTS votes (
 ALTER TABLE measures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE measure_slides ENABLE ROW LEVEL SECURITY;
 ALTER TABLE votes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ingestion_logs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE pending_queue ENABLE ROW LEVEL SECURITY;
 
 -- Public read access for measures and slides
 CREATE POLICY "Public read measures"
@@ -91,3 +115,4 @@ CREATE INDEX IF NOT EXISTS idx_measures_created_at ON measures(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_slides_measure_id ON measure_slides(measure_id);
 CREATE INDEX IF NOT EXISTS idx_votes_measure_id ON votes(measure_id);
 CREATE INDEX IF NOT EXISTS idx_votes_fingerprint ON votes(device_fingerprint);
+CREATE INDEX IF NOT EXISTS idx_pending_queue_status ON pending_queue(status, created_at ASC);

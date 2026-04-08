@@ -56,12 +56,12 @@ export function MeasureCard({ measure, index }: MeasureCardProps) {
 
   return (
     <article
-      className="card-enter flex flex-col gap-3"
+      className="card-enter flex flex-col w-full h-[100dvh] relative snap-start shrink-0"
       style={{ animationDelay: `${index * 100}ms` }}
       id={`measure-${measure.id}`}
     >
       {/* --- MEDIA BLOCK (Story-Style) --- */}
-      <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-sm border border-gray-200/50">
+      <div className="relative flex-1 w-full bg-black overflow-hidden">
         
         {/* Content Section — Carousel overlay (now contains the images as well) */}
         <div className="absolute inset-0 z-0">
@@ -71,7 +71,7 @@ export function MeasureCard({ measure, index }: MeasureCardProps) {
         {/* Header Elements (Tag & Logo) */}
         <div className="absolute top-4 left-4 right-4 z-10 flex justify-between items-start pointer-events-none">
           <span
-            className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-semibold ${tagConfig.bgClass} ${tagConfig.textClass} border border-white/20 shadow-sm backdrop-blur-sm`}
+            className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-semibold ${tagConfig.bgClass} ${tagConfig.textClass} border border-white/20 shadow-sm backdrop-blur-sm transform-gpu`}
             style={{ transform: "translate3d(0,0,0)" }}
           >
             <span>{tagConfig.emoji}</span>
@@ -89,13 +89,13 @@ export function MeasureCard({ measure, index }: MeasureCardProps) {
           </div>
         </div>
 
-        {/* Share Button (Bottom Right) */}
+        {/* Share Button (Right side, vertical TikTok style) */}
         <button
           onClick={() => handleShare(measure.title || "Mesure Législative", window.location.href)}
-          className="absolute bottom-3 right-4 z-30 w-9 h-9 rounded-full bg-black/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/50 transition-colors shadow-sm border border-white/20 active:scale-95"
+          className="absolute bottom-36 right-4 z-50 w-12 h-12 rounded-full bg-black/30 backdrop-blur-md transform-gpu flex items-center justify-center text-white hover:bg-black/50 transition-colors shadow-sm border border-white/20 active:scale-95 touch-manipulation"
           aria-label="Partager"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] translate-y-[-1px]">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-[20px] h-[20px] translate-y-[-1px]">
             <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
             <polyline points="16 6 12 2 8 6"></polyline>
             <line x1="12" y1="2" x2="12" y2="15"></line>
@@ -104,10 +104,10 @@ export function MeasureCard({ measure, index }: MeasureCardProps) {
 
       </div>
 
-      {/* --- INTERACTION BLOCK (Discreet) --- */}
-      <MeasureInteraction measureId={measure.id} summary={measure.vote_summary} />
-
-      <div className="h-4" /> {/* Reduced Spacing between cards */}
+      {/* --- INTERACTION BLOCK (Overlay at bottom) --- */}
+      <div className="absolute bottom-6 left-0 right-0 z-40 px-4">
+        <MeasureInteraction measureId={measure.id} summary={measure.vote_summary} />
+      </div>
     </article>
   );
 }

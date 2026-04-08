@@ -33,12 +33,12 @@ export function MeasureFeed() {
   const { measures, isLoading, isError } = useMeasures();
 
   return (
-    <main className="flex-1 pb-8">
-      <div className="max-w-lg mx-auto px-4 space-y-6 pt-4">
+    <main className="flex-1 w-full max-w-lg mx-auto">
+      <div className="flex flex-col w-full">
 
         {/* Loading State */}
         {isLoading && (
-          <div className="space-y-6">
+          <div className="space-y-0">
             <SkeletonCard />
             <SkeletonCard />
             <SkeletonCard />
