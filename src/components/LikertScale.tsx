@@ -65,20 +65,15 @@ export function LikertScale({ measureId, compact }: LikertScaleProps) {
 
   return (
     <div className="py-1 relative">
-      {/* Confirmation toast overlay */}
-      {showConfirmation && (
-        <div className="absolute -top-6 right-0 text-xs text-green-600 font-medium animate-in fade-in slide-in-from-bottom-2">
-          ✓ Vote enregistré
-        </div>
-      )}
 
-      {/* Likert buttons with inline labels */}
+      {/* Likert buttons */}
       <div className="flex items-center justify-between w-full relative">
-        <span className="text-[10px] font-semibold text-gray-400 tracking-wide pr-1 shrink-0">Contre</span>
-        
         <div className="flex items-center justify-between flex-1 max-w-full px-1">
           {LIKERT_OPTIONS.map((option) => {
             const isSelected = selectedValue === option.value;
+            // Only show word labels for the first and last options
+            const labelWord = option.value === 1 ? "Contre" : option.value === 5 ? "Pour" : null;
+
             return (
               <button
                 key={option.value}
@@ -96,21 +91,19 @@ export function LikertScale({ measureId, compact }: LikertScaleProps) {
                 title={option.label}
               >
                 <span className="text-[22px] leading-none mb-0.5">{option.emoji}</span>
-                {!compact && (
+                {labelWord && !compact && (
                   <span
-                    className={`text-[8px] font-bold ${
+                    className={`text-[9px] font-bold mt-0.5 ${
                       isSelected ? "text-white" : "text-gray-400"
                     }`}
                   >
-                    {option.value}
+                    {labelWord}
                   </span>
                 )}
               </button>
             );
           })}
         </div>
-
-        <span className="text-[10px] font-semibold text-gray-400 tracking-wide pl-1 shrink-0">Pour</span>
       </div>
     </div>
   );

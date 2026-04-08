@@ -110,25 +110,11 @@ export function MeasureCard({ measure, index }: MeasureCardProps) {
           </span>
           
         </div>
-
-        {/* Share Button (Right side, vertical TikTok style) - Moved much higher to avoid text */}
-        <button
-          onClick={() => handleShare(measure.title || "Mesure Législative", window.location.href)}
-          className="absolute bottom-56 right-4 z-50 w-12 h-12 rounded-full bg-black/40 backdrop-blur-md transform-gpu flex items-center justify-center text-white hover:bg-black/60 transition-colors shadow-lg border border-white/20 active:scale-95 touch-manipulation"
-          aria-label="Partager"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-[20px] h-[20px] translate-y-[-1px]">
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-            <polyline points="16 6 12 2 8 6"></polyline>
-            <line x1="12" y1="2" x2="12" y2="15"></line>
-          </svg>
-        </button>
-
       </div>
 
       {/* --- INTERACTION BLOCK (Overlay at bottom) --- */}
       <div className="absolute bottom-6 left-0 right-0 z-40 px-4">
-        <MeasureInteraction measureId={measure.id} summary={measure.vote_summary} />
+        <MeasureInteraction measureId={measure.id} summary={measure.vote_summary} measureTitle={measure.title || undefined} />
       </div>
     </article>
   );

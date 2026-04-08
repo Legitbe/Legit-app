@@ -33,7 +33,10 @@ export function MeasureFeed() {
   const { measures, isLoading, isError } = useMeasures();
 
   return (
-    <main className="flex-1 w-full max-w-lg mx-auto">
+    <main 
+      className="flex-1 w-full max-w-lg mx-auto h-[100dvh] overflow-y-auto overflow-x-hidden snap-y snap-mandatory relative z-0"
+      style={{ WebkitOverflowScrolling: "touch" }}
+    >
       <div className="flex flex-col w-full">
 
         {/* Loading State */}

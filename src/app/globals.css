@@ -23,8 +23,6 @@
 
 /* --- Base Styles --- */
 html {
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -32,8 +30,10 @@ body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  overflow: hidden;
   height: 100dvh;
+  width: 100vw;
+  position: fixed;
 }
 
 /* --- iOS Light Glassmorphism Utility --- */
