@@ -69,7 +69,7 @@ export function MeasureCard({ measure, index }: MeasureCardProps) {
         </div>
 
         {/* Header Elements (Tag & Logo) */}
-        <div className="absolute top-10 left-4 right-4 z-40 flex flex-col items-start gap-4 pointer-events-none">
+        <div className="absolute top-2 left-4 right-4 z-40 flex flex-col items-start gap-4 pointer-events-none safe-top">
           <div className="flex justify-between w-full items-center">
             
             <div className="flex items-center gap-2">
@@ -113,7 +113,7 @@ export function MeasureCard({ measure, index }: MeasureCardProps) {
       </div>
 
       {/* --- INTERACTION BLOCK (Overlay at bottom) --- */}
-      <div className="absolute bottom-6 left-0 right-0 z-40 px-4">
+      <div className="absolute bottom-0 pb-6 safe-bottom left-0 right-0 z-40 px-4">
         <MeasureInteraction measureId={measure.id} summary={measure.vote_summary} measureTitle={measure.title || undefined} />
       </div>
     </article>

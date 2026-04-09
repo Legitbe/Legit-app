@@ -15,8 +15,8 @@ export function MeasureInteraction({ measureId, summary, measureTitle }: Measure
   const [showVotes, setShowVotes] = useState(false);
 
   return (
-    <div className="px-2 mt-1 mb-2">
-      {/* Discreet Share Button just above Likert Scale */}
+    <div className="px-2 mt-1 mb-2 relative">
+      {/* Discreet Share Button just above everything */}
       <div className="flex justify-end pr-2 mb-1">
         <button
           onClick={() => handleShare(measureTitle || "Mesure Législative", window.location.href)}
@@ -32,7 +32,18 @@ export function MeasureInteraction({ measureId, summary, measureTitle }: Measure
         </button>
       </div>
 
-      <div className="flex items-start justify-between gap-4">
+      {/* Expandable Vote Summary - Placed ABOVE the Likert scale so it expands upwards */}
+      <div 
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          showVotes ? "max-h-[150px] opacity-100 mb-3" : "max-h-0 opacity-0 mb-0 pointer-events-none"
+        }`}
+      >
+        <div className={showVotes ? "animate-in slide-in-from-bottom-2 duration-300" : ""}>
+          <VoteSummaryBar summary={summary} />
+        </div>
+      </div>
+
+      <div className="flex items-start justify-between gap-4 relative z-10">
         {/* Toggle Votes Button (1/3) */}
         <button
           onClick={() => setShowVotes(!showVotes)}
@@ -46,13 +57,6 @@ export function MeasureInteraction({ measureId, summary, measureTitle }: Measure
           <LikertScale measureId={measureId} compact={true} />
         </div>
       </div>
-
-      {/* Expandable Vote Summary - Placed BELOW so it doesn't push the layout up and cover the text */}
-      {showVotes && (
-        <div className="mt-4 pb-2 animate-in fade-in slide-in-from-top-2 duration-300">
-          <VoteSummaryBar summary={summary} />
-        </div>
-      )}
     </div>
   );
 }
